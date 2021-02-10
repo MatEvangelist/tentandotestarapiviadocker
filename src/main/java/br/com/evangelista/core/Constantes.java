@@ -6,9 +6,8 @@ import static io.restassured.http.ContentType.JSON;
 
 public interface Constantes {
 
-    String APP_BASE_URL = "";
-    Integer APP_PORT = 0;
-    String APP_BASE_PATH = "";
+    String APP_BASE_URL = "http://localhost:12345";
+    String APP_BASE_PATH = "/api";
     ContentType APP_CONTENT_TYPE = JSON;
     Long MAX_TIMEOUT = 10000L;
 }
