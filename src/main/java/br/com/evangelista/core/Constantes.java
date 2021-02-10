@@ -6,9 +6,9 @@ import static io.restassured.http.ContentType.JSON;
 
 public interface Constantes {
 
-    String APP_BASE_URL = "https://petstore.swagger.io";
-    Integer APP_PORT = 443;
-    String APP_BASE_PATH = "/v2";
+    String APP_BASE_URL = "";
+    Integer APP_PORT = 0;
+    String APP_BASE_PATH = "";
     ContentType APP_CONTENT_TYPE = JSON;
     Long MAX_TIMEOUT = 10000L;
 }
