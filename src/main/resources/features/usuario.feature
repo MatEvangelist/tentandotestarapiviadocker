@@ -3,7 +3,7 @@
 
 Funcionalidade: Gerenciamento de um usuário na Pet Store
 
-
+  @wip
   Cenário: Criar um usuário na loja
     Quando faço um POST para /v3/user com os seguintes valores:
       | id         | 10                    |
@@ -17,8 +17,7 @@ Funcionalidade: Gerenciamento de um usuário na Pet Store
     Então quando faço um GET para /v3/user/matevangelista, o usuário criado é retornado
 
 
-
-
+  @quarentine
   Cenário: Criar um usuário na loja usando docstring
     Quando faço um POST para /v3/user com a seguinte docString:
     """json
@@ -37,5 +36,5 @@ Funcionalidade: Gerenciamento de um usuário na Pet Store
 
 
   Cenário: Criar um usuário na loja refletindo o negócio
-  Quando crio um usuário
-  Então o usuário é salvo no sistema
+    Quando crio um usuário
+    Então o usuário é salvo no sistema

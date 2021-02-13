@@ -1,4 +1,4 @@
-package br.com.evangelista.entidades;
+package br.com.evangelista.dominio.entidades;
 
 import lombok.Builder;
 import lombok.Data;

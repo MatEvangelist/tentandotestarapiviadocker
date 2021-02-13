@@ -1,6 +1,6 @@
 package br.com.evangelista.steps;
 
- import br.com.evangelista.entidades.User;
+ import br.com.evangelista.dominio.entidades.User;
  import gherkin.ast.DocString;
 import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
@@ -18,15 +18,15 @@ public class UsuarioStepDefinition {
     private static final String CREATE_USER_ENDPOINT = "/v3/user";
     private static final String USER_ENDPOINT = "/v3/user/{name}";
 
-    private Map<String, String> expectedUser = new HashMap<>();
-    private User user;
+    private Map<String, String> expectedUserTabela = new HashMap<>();
+    private User userTabela;
 
     @Quando("faço um POST para {word} com os seguintes valores:")
-    public void facoUmPOSTSeguintesValores(String endpoint, Map<String, String> user) {
-        expectedUser = user;
+    public void facoUmPOSTSeguintesValores(String endpoint, Map<String, String> userTabela) {
+        expectedUserTabela = userTabela;
 
         given()
-            .body(user)
+            .body(userTabela)
         .when()
             .post(endpoint)
         .then()
@@ -40,13 +40,13 @@ public class UsuarioStepDefinition {
             .get(endpoint)
         .then()
             .statusCode(HttpStatus.SC_OK)
-            .body("username", is(expectedUser.get("username")));
+            .body("username", is(expectedUserTabela.get("username")));
         // o primeiro username é do body da req e o segundo corresponde ao da tabela
     }
 
     @Quando("faço um POST para {word} com a seguinte docString:")
     public void facoUmPOSTParaSeguinteDocString(String endpoint, DocString docString) {
-        expectedUser.put("username", "zawahiri");
+        expectedUserTabela.put("username", "zawahiri");
 
         given()
             .body(docString.getContent())
@@ -58,10 +58,10 @@ public class UsuarioStepDefinition {
 
     @Quando("crio um usuário")
     public void crioUmUsuario() {
-        user = User.builder().build();
+        userTabela = User.builder().build();
 
         given()
-            .body(user)
+            .body(userTabela)
         .when()
             .post(CREATE_USER_ENDPOINT)
         .then()
@@ -71,11 +71,11 @@ public class UsuarioStepDefinition {
     @Então("o usuário é salvo no sistema")
     public void oUsuarioESalvoNoSistema() {
         given()
-            .pathParam("name", user.getUsername())
+            .pathParam("name", userTabela.getUsername())
         .when()
             .get(USER_ENDPOINT)
         .then()
             .statusCode(HttpStatus.SC_OK)
-            .body("username", is(user.getUsername()));
+            .body("username", is(userTabela.getUsername()));
     }
 }
