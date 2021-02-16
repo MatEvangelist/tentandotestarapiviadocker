@@ -1,5 +1,7 @@
 package br.com.evangelista.core;
 
+import br.com.evangelista.dominio.api.UserApi;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -7,7 +9,13 @@ import io.restassured.builder.ResponseSpecBuilder;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.lessThan;
 
-public class Hooks implements Constantes{
+public class Config implements Constantes {
+
+    private final UserApi userApi;
+
+    public Config() {
+        userApi = new UserApi();
+    }
 
     @Before
     public void setup() {
@@ -19,10 +27,10 @@ public class Hooks implements Constantes{
                 .addHeader("Authorization", getToken())
                 .build();
 
-        responseSpecification = new ResponseSpecBuilder()
-                .expectContentType(APP_CONTENT_TYPE)
-                .expectResponseTime(lessThan(MAX_TIMEOUT))
-                .build();
+//        responseSpecification = new ResponseSpecBuilder()
+//                .expectContentType(APP_CONTENT_TYPE)
+//                .expectResponseTime(lessThan(MAX_TIMEOUT))
+//                .build();
 
         enableLoggingOfRequestAndResponseIfValidationFails();
     }
@@ -30,5 +38,11 @@ public class Hooks implements Constantes{
     private String getToken() {
         return "grant acess";
         // método de retornar token aqui...
+    }
+
+    @After(value = "@deleteAllUsers")
+    public void deleteAllUsers() {
+        System.out.println("delete users");
+        userApi.deleteAllUsers();
     }
 }

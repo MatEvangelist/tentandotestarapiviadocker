@@ -27,8 +27,5 @@ public class UsuarioStepDefinition {
     public void oUsuarioESalvoNoSistema() {
         String actualUsername = userApi.getNicknameUsuario(expectedUser);
         assertThat(actualUsername, is(expectedUser.getUsername()));
-
     }
-
-
 }

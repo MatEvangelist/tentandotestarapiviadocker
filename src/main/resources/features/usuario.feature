@@ -1,5 +1,5 @@
 #language: pt
-# enconding: utf-08
+#enconding: utf-08
 
 Funcionalidade: Gerenciamento de um usuário na Pet Store
 
@@ -34,7 +34,7 @@ Funcionalidade: Gerenciamento de um usuário na Pet Store
   """
     Então quando faço um GET para /v3/user/zawahiri, o usuário criado é retornado
 
-
+  @deleteAllUsers
   Cenário: Criar um usuário na loja refletindo o negócio
     Quando crio um usuário
     Então o usuário é salvo no sistema
