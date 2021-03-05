@@ -1,6 +1,7 @@
 package br.com.evangelista.dominio.api;
 
 import br.com.evangelista.dominio.entidades.User;
+import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 
 import java.util.Arrays;
@@ -16,6 +17,7 @@ public class UserApi {
     public void createUser(User user) {
         given()
             .body(user)
+            .contentType(ContentType.JSON)
         .when()
             .post(CREATE_USER_ENDPOINT)
         .then()
@@ -38,10 +40,12 @@ public class UserApi {
         for(String user : userList) {
             given()
                 .pathParam("name", user)
+                //.spec()
             .when()
                 .delete(USER_ENDPOINT)
             .then()
                 .statusCode(HttpStatus.SC_OK);
+                //.spec();
         }
     }
 }
