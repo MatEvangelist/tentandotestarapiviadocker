@@ -1,5 +1,6 @@
 package br.com.evangelista.core;
 
+import br.com.evangelista.dominio.api.PetApi;
 import br.com.evangelista.dominio.api.UserApi;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -12,9 +13,11 @@ import static org.hamcrest.Matchers.lessThan;
 public class Config implements Constantes {
 
     private final UserApi userApi;
+    private final PetApi petApi;
 
     public Config() {
         userApi = new UserApi();
+        petApi = new PetApi();
     }
 
     @Before
@@ -27,10 +30,10 @@ public class Config implements Constantes {
                 .addHeader("Authorization", getToken())
                 .build();
 
-//        responseSpecification = new ResponseSpecBuilder()
-//                .expectContentType(APP_CONTENT_TYPE)
-//                .expectResponseTime(lessThan(MAX_TIMEOUT))
-//                .build();
+        responseSpecification = new ResponseSpecBuilder()
+                .expectContentType(APP_CONTENT_TYPE)
+                .expectResponseTime(lessThan(MAX_TIMEOUT))
+                .build();
 
         enableLoggingOfRequestAndResponseIfValidationFails();
     }
@@ -42,7 +45,11 @@ public class Config implements Constantes {
 
     @After(value = "@deleteAllUsers")
     public void deleteAllUsers() {
-        System.out.println("delete users");
         userApi.deleteAllUsers();
+    }
+
+    @After("@DeleteExtraPets")
+    public void deleteExtraPets() {
+        petApi.deleteExtraPets("available");
     }
 }

@@ -40,12 +40,11 @@ public class UserApi {
         for(String user : userList) {
             given()
                 .pathParam("name", user)
-                //.spec()
             .when()
                 .delete(USER_ENDPOINT)
             .then()
-                .statusCode(HttpStatus.SC_OK);
-                //.spec();
+                .statusCode(HttpStatus.SC_OK)
+                .contentType(ContentType.ANY);
         }
     }
 }

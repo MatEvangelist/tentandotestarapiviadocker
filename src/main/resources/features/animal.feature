@@ -33,3 +33,9 @@ Funcionalidade: Gerenciamento de um animal na loja
     Exemplos: Animais sem estoque
       | status | quantidade |
       | sold   | 0          |
+
+  Cenário: Lista animais disponíveis à venda
+    Dado que eu possua animais available
+    Quando pesquiso por todos animais available
+    Então recebo a lista com 7 animais available
+    E 3 animais possuem o nome Lion
