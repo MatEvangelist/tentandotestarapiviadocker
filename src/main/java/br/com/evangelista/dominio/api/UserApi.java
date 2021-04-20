@@ -16,35 +16,45 @@ public class UserApi {
 
     public void createUser(User user) {
         given()
-            .body(user)
-            .contentType(ContentType.JSON)
-        .when()
-            .post(CREATE_USER_ENDPOINT)
-        .then()
-            .statusCode(HttpStatus.SC_OK);
+                .body(user)
+                .contentType(ContentType.JSON)
+                .when()
+                .post(CREATE_USER_ENDPOINT)
+                .then()
+                .statusCode(HttpStatus.SC_OK);
     }
 
     public String getNicknameUsuario(User user) {
-        return
-        given()
-            .pathParam("name", user.getUsername())
-        .when()
-            .get(USER_ENDPOINT)
-        .thenReturn()
-            .path("username");
+        return given()
+                .pathParam("name", user.getUsername())
+                .when()
+                .get(USER_ENDPOINT)
+                .thenReturn()
+                .path("username");
     }
 
     public void deleteAllUsers() {
         List<String> userList = Arrays.asList("matevangelista");
 
-        for(String user : userList) {
+        for (String user : userList) {
             given()
-                .pathParam("name", user)
-            .when()
+                    .pathParam("name", user)
+                    .when()
+                    .delete(USER_ENDPOINT)
+                    .then()
+                    .statusCode(HttpStatus.SC_OK)
+                    .contentType(ContentType.ANY);
+        }
+
+    }
+
+    public void deleteUser(User user) {
+        given()
+                .pathParam("name", user.getUsername())
+                .when()
                 .delete(USER_ENDPOINT)
-            .then()
+                .then()
                 .statusCode(HttpStatus.SC_OK)
                 .contentType(ContentType.ANY);
-        }
     }
 }
